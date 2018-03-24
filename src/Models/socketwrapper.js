@@ -8,12 +8,16 @@ class SocketWrapper {
 
         this.user = data.user;
         this.isAuthenticated = false;
+        this.lastConnect = new Date();
         this._defaultEvents();
     }
 
     _defaultEvents() {
-        this.socket.on('ping', () => this.socket.emit('pong'));
-    }
+        this.socket.on('hey', () => {
+            this.lastConnect = new Date();
+            this.socket.emit('yes');
+        });
+    }   
     
     getUser() {
         return {user: this.user, id: this.id};
